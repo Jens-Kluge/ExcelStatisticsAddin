@@ -1,0 +1,15 @@
+﻿Notes on using the Excel interop objects in c# to perform tasks:
+Copy cells from range1 into range2: range1.Copy(range2);
+
+Adress cells by row and column: Cells.Item[1, 1]
+
+Loop over cells and insert formula:
+foreach (Range rg in rgIn.Cells) {
+      s = String.Format("=R{0}C{1}", rg.Row, rg.Column);
+      ((Range)ws.Cells[row + i, col]).FormulaR1C1 = s;
+      i++; 
+}
+
+Get the cell address of the upper left corner in a range:
+String sAddrFrom = ((Range)rgIn.Cells.Item[1, 1]).AddressLocal[false, false];
+
