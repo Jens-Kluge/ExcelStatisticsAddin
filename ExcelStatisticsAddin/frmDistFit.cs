@@ -190,18 +190,18 @@ namespace ExcelStatisticsAddin
                 sCellrefStd = ((Range)rgout.Cells[2, 2]).AddressLocal;
 
                 //initial guess for beta
-                rgout[1, 4].Value = "beta (initial guess)";
+                rgout[1, 4].Value = "β (initial guess)";
                 s = String.Format("=0.5"); //to be replaced by an appropriate formula
                 rgout[1, 5].Formula = s;
                 sCellrefBeta1 = ((Range)rgout.Cells[1, 5]).AddressLocal;
 
                 //copy this value into the output cell for beta
-                rgout[4, 4].Value = "beta";
+                rgout[4, 4].Value = "β";
                 rgout[4, 5].Value = rgout[1, 5].Value;
                 sCellrefBeta = ((Range)rgout.Cells[4, 5]).AddressLocal;
                 
                 //calculate alpha from beta and mean value
-                rgout[3, 4].Value = "alpha";
+                rgout[3, 4].Value = "α";
                 s = String.Format("={0}/EXP(GAMMALN(1 + 1/{1}))", sCellrefMean, sCellrefBeta);
                 rgout[3, 5].Formula = s;
 
