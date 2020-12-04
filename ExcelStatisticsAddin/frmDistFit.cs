@@ -177,43 +177,81 @@ namespace ExcelStatisticsAddin
                 Worksheet ws = Globals.ThisAddIn.Application.ActiveWorkbook.ActiveSheet;
                 // compute Weibull parameters alpha, beta using method of moments
 
-                //average of input range
-                s = String.Format("=AVERAGE({0}:{1})", sAddrFrom, sAddrTo);
-                rgout[1, 1].Value = "mean";
-                rgout.Cells[1, 2].Formula = s;
-                sCellrefMean = ((Range)rgout.Cells[1, 2]).AddressLocal[false, false];
+                if (rbMoments.Checked) { 
+                    //average of input range
+                    s = String.Format("=AVERAGE({0}:{1})", sAddrFrom, sAddrTo);
+                    rgout[1, 1].Value = "mean";
+                    rgout.Cells[1, 2].Formula = s;
+                    sCellrefMean = ((Range)rgout.Cells[1, 2]).AddressLocal[false, false];
 
-                //standard deviation of input range
-                s = String.Format("=STDEV.S({0}:{1})", sAddrFrom, sAddrTo);
-                rgout.Cells[2, 1].Value = "deviation";
-                rgout.Cells[2, 2].Formula = s;
-                sCellrefStd = ((Range)rgout.Cells[2, 2]).AddressLocal;
+                    //standard deviation of input range
+                    s = String.Format("=STDEV.S({0}:{1})", sAddrFrom, sAddrTo);
+                    rgout.Cells[2, 1].Value = "deviation";
+                    rgout.Cells[2, 2].Formula = s;
+                    sCellrefStd = ((Range)rgout.Cells[2, 2]).AddressLocal;
 
-                //initial guess for beta
-                rgout[1, 4].Value = "β (initial guess)";
-                s = String.Format("=0.5"); //to be replaced by an appropriate formula
-                rgout[1, 5].Formula = s;
-                sCellrefBeta1 = ((Range)rgout.Cells[1, 5]).AddressLocal;
+                    //initial guess for beta
+                    rgout[1, 4].Value = "β (initial guess)";
+                    s = String.Format("=0.5"); //to be replaced by an appropriate formula
+                    rgout[1, 5].Formula = s;
+                    sCellrefBeta1 = ((Range)rgout.Cells[1, 5]).AddressLocal;
 
-                //copy this value into the output cell for beta
-                rgout[4, 4].Value = "β";
-                rgout[4, 5].Value = rgout[1, 5].Value;
-                sCellrefBeta = ((Range)rgout.Cells[4, 5]).AddressLocal;
-                
-                //calculate alpha from beta and mean value
-                rgout[3, 4].Value = "α";
-                s = String.Format("={0}/EXP(GAMMALN(1 + 1/{1}))", sCellrefMean, sCellrefBeta);
-                rgout[3, 5].Formula = s;
+                    //copy this value into the output cell for beta
+                    rgout[4, 4].Value = "β";
+                    rgout[4, 5].Value = rgout[1, 5].Value;
+                    sCellrefBeta = ((Range)rgout.Cells[4, 5]).AddressLocal;
 
-                //implicit formula for beta
-                //to solve this for beta adjust beta such that the value is close to zero
-                rgout.Cells[4, 1].Value = "implicit formula";
-                s = String.Format("=GAMMALN(1+2/{0})-2*GAMMALN(1+1/{0})-LN({1}^2+{2}^2)+2*LN({1})", sCellrefBeta, sCellrefMean, sCellrefStd);
-                rgout.Cells[4, 2].Formula = s;
+                    //calculate alpha from beta and mean value
+                    rgout[3, 4].Value = "α";
+                    s = String.Format("={0}/EXP(GAMMALN(1 + 1/{1}))", sCellrefMean, sCellrefBeta);
+                    rgout[3, 5].Formula = s;
 
-                //Call the Goalseeker
-                ((Range)rgout.Cells[4, 2]).GoalSeek(0, rgout.Cells[4,5]);
-                 
+                    //implicit formula for beta
+                    //to solve this for beta adjust beta such that the value is close to zero
+                    rgout.Cells[4, 1].Value = "implicit formula";
+                    s = String.Format("=GAMMALN(1+2/{0})-2*GAMMALN(1+1/{0})-LN({1}^2+{2}^2)+2*LN({1})", sCellrefBeta, sCellrefMean, sCellrefStd);
+                    rgout.Cells[4, 2].Formula = s;
+
+                    //Call the Goalseeker
+                    ((Range)rgout.Cells[4, 2]).GoalSeek(0, rgout.Cells[4, 5]);
+                }
+                else if(rbDensity.Checked)
+                {
+                    //average of input range
+                    s = String.Format("=AVERAGE({0}:{1})", sAddrFrom, sAddrTo);
+                    rgout[1, 1].Value = "mean";
+                    rgout.Cells[1, 2].Formula = s;
+                    sCellrefMean = ((Range)rgout.Cells[1, 2]).AddressLocal[false, false];
+
+                    //average of third power
+                    rgout.Cells[2, 1].Value = "mean(x^3)";
+                    s = String.Format("=SUMPRODUCT({0}:{1}^3)/COUNT({0}:{1})", sAddrFrom, sAddrTo);
+                    rgout.Cells[2, 2].Formula = s;
+                    String sCellrefX3 = ((Range)rgout.Cells[2, 2]).AddressLocal;
+
+                    //third power of average
+                    rgout[3, 1].Value = "mean(x)^3";
+                    s = String.Format("=AVERAGE({0}:{1})^3", sAddrFrom, sAddrTo);
+                    rgout.Cells[3, 2].Formula = s;
+                    String sCellrefAVG3 = ((Range)rgout.Cells[3, 2]).AddressLocal[false, false];
+
+                    //energy pattern
+                    rgout[4, 1].Value = "energy pattern";
+                    s = String.Format("={0}/{1}", sCellrefX3, sCellrefAVG3);
+                    rgout.Cells[4, 2].Formula = s;
+                    String sCellrefPattern = ((Range)rgout.Cells[4, 2]).AddressLocal[false, false];
+
+                    //alpha
+                    rgout[5, 1].Value = "β";
+                    s = String.Format("=1 + 3.69/{0}^2", sCellrefPattern);
+                    rgout.Cells[5, 2].Formula = s;
+                    String sCellrefAlpha = ((Range)rgout.Cells[5, 2]).AddressLocal[false, false];
+
+                    //beta
+                    rgout[6, 1].Value = "α";
+                    s = String.Format("={0}/GAMMA(1 + 1/{1})", sCellrefMean, sCellrefAlpha);
+                    rgout.Cells[6, 2].Formula = s;
+                }
             }
             catch(Exception ex)
             {
@@ -221,5 +259,9 @@ namespace ExcelStatisticsAddin
             }
         }
 
+        private void frmDistFit_Load(object sender, EventArgs e)
+        {
+            rbMoments.Checked = true;
+        }
     }
 }

@@ -36,8 +36,12 @@ namespace ExcelStatisticsAddin
             this.refedit2 = new VS.NET_RefeditControl.refedit();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.grpMethod = new System.Windows.Forms.GroupBox();
+            this.rbMoments = new System.Windows.Forms.RadioButton();
+            this.rbDensity = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.grpMethod.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -98,11 +102,45 @@ namespace ExcelStatisticsAddin
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // grpMethod
+            // 
+            this.grpMethod.Controls.Add(this.rbDensity);
+            this.grpMethod.Controls.Add(this.rbMoments);
+            this.grpMethod.Location = new System.Drawing.Point(22, 206);
+            this.grpMethod.Name = "grpMethod";
+            this.grpMethod.Size = new System.Drawing.Size(261, 85);
+            this.grpMethod.TabIndex = 5;
+            this.grpMethod.TabStop = false;
+            this.grpMethod.Text = "Method";
+            // 
+            // rbMoments
+            // 
+            this.rbMoments.AutoSize = true;
+            this.rbMoments.Location = new System.Drawing.Point(21, 21);
+            this.rbMoments.Name = "rbMoments";
+            this.rbMoments.Size = new System.Drawing.Size(153, 21);
+            this.rbMoments.TabIndex = 0;
+            this.rbMoments.TabStop = true;
+            this.rbMoments.Text = "Method of moments";
+            this.rbMoments.UseVisualStyleBackColor = true;
+            // 
+            // rbDensity
+            // 
+            this.rbDensity.AutoSize = true;
+            this.rbDensity.Location = new System.Drawing.Point(21, 48);
+            this.rbDensity.Name = "rbDensity";
+            this.rbDensity.Size = new System.Drawing.Size(174, 21);
+            this.rbDensity.TabIndex = 1;
+            this.rbDensity.TabStop = true;
+            this.rbDensity.Text = "Energy density method";
+            this.rbDensity.UseVisualStyleBackColor = true;
+            // 
             // frmDistFit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 219);
+            this.ClientSize = new System.Drawing.Size(413, 313);
+            this.Controls.Add(this.grpMethod);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.groupBox2);
@@ -110,8 +148,11 @@ namespace ExcelStatisticsAddin
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmDistFit";
             this.Text = "Weibull Fit";
+            this.Load += new System.EventHandler(this.frmDistFit_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.grpMethod.ResumeLayout(false);
+            this.grpMethod.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -124,5 +165,8 @@ namespace ExcelStatisticsAddin
         public VS.NET_RefeditControl.refedit refedit2;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.GroupBox grpMethod;
+        private System.Windows.Forms.RadioButton rbDensity;
+        private System.Windows.Forms.RadioButton rbMoments;
     }
 }
