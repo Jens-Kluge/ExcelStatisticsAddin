@@ -29,17 +29,19 @@ namespace ExcelStatisticsAddin
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDistFit));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnFill = new System.Windows.Forms.Button();
+            this.refedit1 = new VS.NET_RefeditControl.refedit();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.refedit2 = new VS.NET_RefeditControl.refedit();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.grpMethod = new System.Windows.Forms.GroupBox();
             this.rbDensity = new System.Windows.Forms.RadioButton();
             this.rbMoments = new System.Windows.Forms.RadioButton();
-            this.refedit2 = new VS.NET_RefeditControl.refedit();
-            this.refedit1 = new VS.NET_RefeditControl.refedit();
-            this.btnFill = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpMethod.SuspendLayout();
@@ -56,6 +58,26 @@ namespace ExcelStatisticsAddin
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Input Range";
             // 
+            // btnFill
+            // 
+            this.btnFill.Image = global::ExcelStatisticsAddin.Properties.Resources.fill_270_icon;
+            this.btnFill.Location = new System.Drawing.Point(231, 36);
+            this.btnFill.Name = "btnFill";
+            this.btnFill.Size = new System.Drawing.Size(20, 22);
+            this.btnFill.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnFill, "Extend selection downwards");
+            this.btnFill.UseVisualStyleBackColor = true;
+            this.btnFill.Click += new System.EventHandler(this.btnFill_Click);
+            // 
+            // refedit1
+            // 
+            this.refedit1._Excel = null;
+            this.refedit1.AllowCollapsedFormResize = false;
+            this.refedit1.Location = new System.Drawing.Point(11, 36);
+            this.refedit1.Name = "refedit1";
+            this.refedit1.Size = new System.Drawing.Size(220, 22);
+            this.refedit1.TabIndex = 0;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.refedit2);
@@ -65,6 +87,15 @@ namespace ExcelStatisticsAddin
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Output Range";
+            // 
+            // refedit2
+            // 
+            this.refedit2._Excel = null;
+            this.refedit2.AllowCollapsedFormResize = false;
+            this.refedit2.Location = new System.Drawing.Point(11, 36);
+            this.refedit2.Name = "refedit2";
+            this.refedit2.Size = new System.Drawing.Size(220, 22);
+            this.refedit2.TabIndex = 1;
             // 
             // btnOK
             // 
@@ -119,34 +150,6 @@ namespace ExcelStatisticsAddin
             this.rbMoments.Text = "Method of moments";
             this.rbMoments.UseVisualStyleBackColor = true;
             // 
-            // refedit2
-            // 
-            this.refedit2._Excel = null;
-            this.refedit2.AllowCollapsedFormResize = false;
-            this.refedit2.Location = new System.Drawing.Point(11, 36);
-            this.refedit2.Name = "refedit2";
-            this.refedit2.Size = new System.Drawing.Size(220, 22);
-            this.refedit2.TabIndex = 0;
-            // 
-            // refedit1
-            // 
-            this.refedit1._Excel = null;
-            this.refedit1.AllowCollapsedFormResize = false;
-            this.refedit1.Location = new System.Drawing.Point(11, 36);
-            this.refedit1.Name = "refedit1";
-            this.refedit1.Size = new System.Drawing.Size(220, 22);
-            this.refedit1.TabIndex = 0;
-            // 
-            // btnFill
-            // 
-            this.btnFill.Image = global::ExcelStatisticsAddin.Properties.Resources.fill_270_icon;
-            this.btnFill.Location = new System.Drawing.Point(231, 36);
-            this.btnFill.Name = "btnFill";
-            this.btnFill.Size = new System.Drawing.Size(20, 22);
-            this.btnFill.TabIndex = 6;
-            this.btnFill.UseVisualStyleBackColor = true;
-            this.btnFill.Click += new System.EventHandler(this.btnFill_Click);
-            // 
             // frmDistFit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -181,5 +184,6 @@ namespace ExcelStatisticsAddin
         private System.Windows.Forms.RadioButton rbDensity;
         private System.Windows.Forms.RadioButton rbMoments;
         private System.Windows.Forms.Button btnFill;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

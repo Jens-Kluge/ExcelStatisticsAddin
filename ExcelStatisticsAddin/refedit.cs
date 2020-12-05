@@ -208,6 +208,7 @@ namespace VS.NET_RefeditControl
 					var mSheet = ((Excel.Worksheet)(_Excel.ActiveSheet)); 
 					_ActiveSheetName = mSheet.Name;
 					excelMoveCursorOnEnter = _Excel.MoveAfterReturn;
+					_Excel.SheetActivate += new Excel.AppEvents_SheetActivateEventHandler(excelEvents_SheetSelectionChange);
 				}
 				textRange.TextAlign = _textAlign;
 			} 
@@ -627,7 +628,6 @@ namespace VS.NET_RefeditControl
 			KeyDown += new System.Windows.Forms.KeyEventHandler(refedit_KeyDown);
 			ResumeLayout(false);
 			PerformLayout();
-
 		}
 		#endregion
 
@@ -1065,7 +1065,7 @@ namespace VS.NET_RefeditControl
 			//} 
 		}
 
-		private void excelEvents_SheetSelectionChange(object Sh, Excel.Range Target)
+		private void excelEvents_SheetSelectionChange(object Sh)
 		{
 			if(!Visible || !Enabled) return;
 			

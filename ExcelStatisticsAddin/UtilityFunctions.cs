@@ -7,6 +7,21 @@ namespace ExcelStatisticsAddin
 {
     static class Utilities
     {
+        public static void GetRange(ref Range rg, String s, ref bool ok)
+        {
+            // Get range with address s, set ok to true if this address is valid
+            ok = true;
+            try
+            {
+                rg = Globals.ThisAddIn.Application.ActiveSheet.Range(s);
+                return;
+            }
+            catch (Exception ex)
+            {
+                ok = false;
+                return;
+            }
+        }
 
         public static void ExtendRange(Range rg, ref Range rg1)
         {

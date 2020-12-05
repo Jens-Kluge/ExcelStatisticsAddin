@@ -10,9 +10,11 @@ using System.Windows.Forms;
 
 namespace ExcelStatisticsAddin
 {
+
     public partial class frmMain : Form
     {
         private frmDistFit fmDistFit;
+        private frmPlotHist fmPlotHist;
 
         public frmMain()
         {
@@ -52,7 +54,22 @@ namespace ExcelStatisticsAddin
 
         private void LoadDistPlotWindow()
         {
-            //Load the Distribution plot window
+            if (fmPlotHist is null || fmPlotHist.IsDisposed)
+            {
+                fmPlotHist = new frmPlotHist();
+                // Initialize input and output selection controls
+                fmPlotHist.refedData._Excel = Globals.ThisAddIn.Application;
+                fmPlotHist.refedBins._Excel = Globals.ThisAddIn.Application;
+                fmPlotHist.refedOutput._Excel = Globals.ThisAddIn.Application;
+            }
+            if (!fmPlotHist.Visible)
+            {
+                fmPlotHist.Show();
+            }
+            else
+            {
+                fmPlotHist.BringToFront();
+            }
         }
         private void btnClose_Click(object sender, EventArgs e)
         {

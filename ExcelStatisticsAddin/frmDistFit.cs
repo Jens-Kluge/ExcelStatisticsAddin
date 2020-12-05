@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Excel;
 
-
 namespace ExcelStatisticsAddin
 {
+    /// <summary>
+    /// Form to call the Distribution fit
+    /// </summary>
     public partial class frmDistFit : Form
     {
         /// <summary>
@@ -279,6 +281,7 @@ namespace ExcelStatisticsAddin
             GetRange(ref rg1, refedit1.Text, ref ok);
             Utilities.ExtendRange(rg1, ref rg2);
             rg2.Select();
+            refedit1.Text = rg2.Address[false, false];
         }
     }
 }
