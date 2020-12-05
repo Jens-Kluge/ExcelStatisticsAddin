@@ -63,6 +63,16 @@ namespace ExcelStatisticsAddin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap fill_270_icon {
+            get {
+                object obj = ResourceManager.GetObject("fill-270-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Graph_icon_big {
             get {
                 object obj = ResourceManager.GetObject("Graph-icon big", resourceCulture);

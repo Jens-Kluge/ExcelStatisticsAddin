@@ -40,7 +40,8 @@ namespace ExcelStatisticsAddin
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
             this.listBox1.Items.AddRange(new object[] {
-            "Fit Weibull Curve"});
+            "Fit Weibull Curve",
+            "Plot Histogram"});
             this.listBox1.Location = new System.Drawing.Point(29, 33);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(117, 212);

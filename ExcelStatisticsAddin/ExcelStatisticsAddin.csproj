@@ -73,6 +73,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ExcelStatisticsAddin.xml</DocumentationFile>
   </PropertyGroup>
   <!--
     This section defines properties that are set when the "Release" configuration is selected.
@@ -159,7 +160,14 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="UtilityFunctions.cs" />
     <Compile Include="Enumerations.cs" />
+    <Compile Include="frmPlotHist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPlotHist.Designer.cs">
+      <DependentUpon>frmPlotHist.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +178,9 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="frmPlotHist.resx">
+      <DependentUpon>frmPlotHist.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -239,6 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
+    <None Include="Resources\fill-270-icon.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

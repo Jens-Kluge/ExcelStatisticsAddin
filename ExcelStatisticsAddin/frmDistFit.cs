@@ -14,6 +14,9 @@ namespace ExcelStatisticsAddin
 {
     public partial class frmDistFit : Form
     {
+        /// <summary>
+        /// Constructor of frmDistFit
+        /// </summary>
         public frmDistFit()
         {
             InitializeComponent();
@@ -100,7 +103,7 @@ namespace ExcelStatisticsAddin
 
         void SetRange2(ref Range rg, Range rg0, long r, long c)
         {
-            // set rg to a range with first cell in rg1 and height r and width c
+            // set rg to a range with first cell in rg and height r and width c
             rg = rg0.Cells[1, 1].Resize(r, c);
         }
 
@@ -146,7 +149,11 @@ namespace ExcelStatisticsAddin
             }
         }
 
-
+        /// <summary>
+        ///  Launch the distribution fitting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
             //OK button is clicked
@@ -262,6 +269,16 @@ namespace ExcelStatisticsAddin
         private void frmDistFit_Load(object sender, EventArgs e)
         {
             rbMoments.Checked = true;
+        }
+
+        private void btnFill_Click(object sender, EventArgs e)
+        {
+            Range rg1= null, rg2=null;
+            bool ok = false;
+
+            GetRange(ref rg1, refedit1.Text, ref ok);
+            Utilities.ExtendRange(rg1, ref rg2);
+            rg2.Select();
         }
     }
 }
