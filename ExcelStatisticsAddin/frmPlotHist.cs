@@ -27,8 +27,6 @@ namespace ExcelStatisticsAddin
             Range rgData = null, rgBins = null, rgOutput=null;
             bool ok = false;
             
-
-            //Check ranges
             try
             {
                 //GetValues
@@ -36,6 +34,11 @@ namespace ExcelStatisticsAddin
                 Utilities.GetRange(ref rgBins, refedBins.Text, ref ok);
                 Utilities.GetRange(ref rgOutput, refedOutput.Text, ref ok);
 
+                //Todo: Check ranges
+                if(!IsValidBinRange(rgBins)) {
+                    MessageBox.Show("Select a valid bin range");
+                    return;
+                }
                 //Plot the histogram
                 long[] values = new long[rgBins.Rows.Count];
                 String s = String.Format("=FREQUENCY({0}, {1})", rgData.Address[false, false], rgBins.Address[false, false]);
@@ -60,13 +63,38 @@ namespace ExcelStatisticsAddin
                     //values[i] = (long)(rgOutput.Cells[i + 1, 1].Value);
                     seriesA.Items.Add(new OxyPlot.Series.ColumnItem(rgOutput.Cells[i + 1, 1].Value, i));
                 }
-                
-                // create a model and add the bars into it
+
+                //create a model and add the series to it
                 var model = new OxyPlot.PlotModel
                 {
                     Title = "Histogram"
                 };
 
+                if (chkOverlay.Checked)
+                {
+                    double alpha = 3, beta = 2;
+                    EstimateWeibullDistParams(rgData, ref alpha, ref beta);
+                    double value;
+
+                    double scalefactor = rgData.Rows.Count*(rgBins[2,1].Value-rgBins[1,1].Value);
+
+                    //line series overlay
+                    var lsFit = new OxyPlot.Series.LineSeries()
+                    {
+                        Color = OxyPlot.OxyColors.Green
+                    };
+                   
+                    for (int i = 0; i < rgOutput.Rows.Count; i++)
+                    {
+                        value = Globals.ThisAddIn.Application.WorksheetFunction.Weibull(rgBins[i + 1, 1].Value, beta, alpha, false);
+                        value *= scalefactor;
+                        lsFit.Points.Add(new OxyPlot.DataPoint(i + 0.5, value));
+                    }
+                    model.Series.Add(lsFit);
+                }
+               
+
+                // Add labels to the X-Axis
                 String[] catLabels = new String[rgOutput.Rows.Count];
                 double dvalue, remainder, eps;
                 double BinSize = rgBins[2, 1].Value - rgBins[1, 1].Value;
@@ -93,7 +121,8 @@ namespace ExcelStatisticsAddin
                
                 
                 model.Series.Add(seriesA);
-                
+              
+
                 plotView1.Model = model;
                 
             }
@@ -148,6 +177,55 @@ namespace ExcelStatisticsAddin
                 m_XUnits = Convert.ToInt32(numericUpDown1.Value);
             }
             catch { }
+        }
+
+        private void EstimateWeibullDistParams(Range rgData, ref double alpha, ref double beta)
+        {
+            //use the power density method 
+            double x3_avg = Globals.ThisAddIn.Application.WorksheetFunction.SumProduct(rgData, rgData, rgData);
+            long samplesize = rgData.Rows.Count;
+            x3_avg = x3_avg / samplesize;
+            double avg = Globals.ThisAddIn.Application.WorksheetFunction.Average(rgData);
+            double avgx3 = Math.Pow(avg,3);
+            double epattern = x3_avg / avgx3;
+            beta = 1 + 3.69 / Math.Pow(epattern, 2);
+            alpha = avg / Globals.ThisAddIn.Application.WorksheetFunction.Gamma(1 + 1 / beta);
+        }
+
+        private bool IsValidBinRange(Range rgBins)
+        {
+            bool bRet=true;
+            try
+            {
+                if (rgBins is null)
+                {
+                    return false;
+                }
+                //there need to be at least two Bins
+                if (rgBins.Rows.Count <= 2)
+                {
+                    return false;
+                }
+                //the bins should be arranged in one column
+                if (rgBins.Columns.Count > 1)
+                {
+                    return false;
+                }
+                //the bins should be in ascending order
+                for (int i = 0; i <= (rgBins.Rows.Count - 1); i++)
+                {
+                    if (rgBins[i + 2, 1].Value <= rgBins[i + 1, 1].Value)
+                    {
+                        return false;
+                    }
+
+                }
+                return bRet;
+            }
+            catch(Exception ex) {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
     }
 }

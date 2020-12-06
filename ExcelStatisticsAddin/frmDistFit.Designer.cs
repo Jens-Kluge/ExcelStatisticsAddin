@@ -133,10 +133,10 @@ namespace ExcelStatisticsAddin
             this.rbDensity.AutoSize = true;
             this.rbDensity.Location = new System.Drawing.Point(21, 48);
             this.rbDensity.Name = "rbDensity";
-            this.rbDensity.Size = new System.Drawing.Size(174, 21);
+            this.rbDensity.Size = new System.Drawing.Size(168, 21);
             this.rbDensity.TabIndex = 1;
             this.rbDensity.TabStop = true;
-            this.rbDensity.Text = "Energy density method";
+            this.rbDensity.Text = "Power density method";
             this.rbDensity.UseVisualStyleBackColor = true;
             // 
             // rbMoments

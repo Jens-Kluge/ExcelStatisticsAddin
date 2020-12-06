@@ -33,19 +33,20 @@ namespace ExcelStatisticsAddin
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPlotHist));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnExtendRg2 = new System.Windows.Forms.Button();
+            this.refedBins = new VS.NET_RefeditControl.refedit();
             this.grpInputData = new System.Windows.Forms.GroupBox();
+            this.refedData = new VS.NET_RefeditControl.refedit();
             this.btnExtendRg1 = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.refedOutput = new VS.NET_RefeditControl.refedit();
             this.plotView1 = new OxyPlot.WindowsForms.PlotView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.refedOutput = new VS.NET_RefeditControl.refedit();
-            this.refedData = new VS.NET_RefeditControl.refedit();
-            this.refedBins = new VS.NET_RefeditControl.refedit();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
+            this.chkOverlay = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.grpInputData.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -74,6 +75,15 @@ namespace ExcelStatisticsAddin
             this.btnExtendRg2.UseVisualStyleBackColor = true;
             this.btnExtendRg2.Click += new System.EventHandler(this.btnExtendRg2_Click);
             // 
+            // refedBins
+            // 
+            this.refedBins._Excel = null;
+            this.refedBins.AllowCollapsedFormResize = false;
+            this.refedBins.Location = new System.Drawing.Point(21, 21);
+            this.refedBins.Name = "refedBins";
+            this.refedBins.Size = new System.Drawing.Size(182, 22);
+            this.refedBins.TabIndex = 1;
+            // 
             // grpInputData
             // 
             this.grpInputData.Controls.Add(this.refedData);
@@ -84,6 +94,15 @@ namespace ExcelStatisticsAddin
             this.grpInputData.TabIndex = 1;
             this.grpInputData.TabStop = false;
             this.grpInputData.Text = "Data";
+            // 
+            // refedData
+            // 
+            this.refedData._Excel = null;
+            this.refedData.AllowCollapsedFormResize = false;
+            this.refedData.Location = new System.Drawing.Point(21, 21);
+            this.refedData.Name = "refedData";
+            this.refedData.Size = new System.Drawing.Size(182, 22);
+            this.refedData.TabIndex = 0;
             // 
             // btnExtendRg1
             // 
@@ -126,6 +145,15 @@ namespace ExcelStatisticsAddin
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Output Range";
             // 
+            // refedOutput
+            // 
+            this.refedOutput._Excel = null;
+            this.refedOutput.AllowCollapsedFormResize = false;
+            this.refedOutput.Location = new System.Drawing.Point(21, 21);
+            this.refedOutput.Name = "refedOutput";
+            this.refedOutput.Size = new System.Drawing.Size(182, 22);
+            this.refedOutput.TabIndex = 2;
+            // 
             // plotView1
             // 
             this.plotView1.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -147,33 +175,6 @@ namespace ExcelStatisticsAddin
             this.label1.Size = new System.Drawing.Size(83, 17);
             this.label1.TabIndex = 8;
             this.label1.Text = "X-Axis Units";
-            // 
-            // refedOutput
-            // 
-            this.refedOutput._Excel = null;
-            this.refedOutput.AllowCollapsedFormResize = false;
-            this.refedOutput.Location = new System.Drawing.Point(21, 21);
-            this.refedOutput.Name = "refedOutput";
-            this.refedOutput.Size = new System.Drawing.Size(182, 22);
-            this.refedOutput.TabIndex = 2;
-            // 
-            // refedData
-            // 
-            this.refedData._Excel = null;
-            this.refedData.AllowCollapsedFormResize = false;
-            this.refedData.Location = new System.Drawing.Point(21, 21);
-            this.refedData.Name = "refedData";
-            this.refedData.Size = new System.Drawing.Size(182, 22);
-            this.refedData.TabIndex = 0;
-            // 
-            // refedBins
-            // 
-            this.refedBins._Excel = null;
-            this.refedBins.AllowCollapsedFormResize = false;
-            this.refedBins.Location = new System.Drawing.Point(21, 21);
-            this.refedBins.Name = "refedBins";
-            this.refedBins.Size = new System.Drawing.Size(182, 22);
-            this.refedBins.TabIndex = 1;
             // 
             // numericUpDown1
             // 
@@ -202,11 +203,22 @@ namespace ExcelStatisticsAddin
             this.label2.TabIndex = 10;
             this.label2.Text = "x bin size";
             // 
+            // chkOverlay
+            // 
+            this.chkOverlay.AutoSize = true;
+            this.chkOverlay.Location = new System.Drawing.Point(35, 333);
+            this.chkOverlay.Name = "chkOverlay";
+            this.chkOverlay.Size = new System.Drawing.Size(202, 21);
+            this.chkOverlay.TabIndex = 11;
+            this.chkOverlay.Text = "Overlay Weibull distribution";
+            this.chkOverlay.UseVisualStyleBackColor = true;
+            // 
             // frmPlotHist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1102, 527);
+            this.Controls.Add(this.chkOverlay);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label1);
@@ -246,5 +258,6 @@ namespace ExcelStatisticsAddin
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox chkOverlay;
     }
 }

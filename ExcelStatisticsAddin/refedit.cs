@@ -826,7 +826,7 @@ namespace VS.NET_RefeditControl
 				if(DesignMode) return;
 
 				if(!Visible || !Enabled) return;
-			
+
 				textRange.Focus();
 				_Entered = true; 
 				if (CollapseFormStyle == CollapseStyle.None)  return; 
