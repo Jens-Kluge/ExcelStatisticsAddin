@@ -29,6 +29,7 @@ namespace ExcelStatisticsAddin
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPlotHist));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnExtendRg2 = new System.Windows.Forms.Button();
@@ -36,14 +37,19 @@ namespace ExcelStatisticsAddin
             this.btnExtendRg1 = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.histogram1 = new ExcelStatisticsAddin.Histogram();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.plotView1 = new OxyPlot.WindowsForms.PlotView();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.refedOutput = new VS.NET_RefeditControl.refedit();
             this.refedData = new VS.NET_RefeditControl.refedit();
             this.refedBins = new VS.NET_RefeditControl.refedit();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.refedOutput = new VS.NET_RefeditControl.refedit();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.grpInputData.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -64,6 +70,7 @@ namespace ExcelStatisticsAddin
             this.btnExtendRg2.Name = "btnExtendRg2";
             this.btnExtendRg2.Size = new System.Drawing.Size(19, 23);
             this.btnExtendRg2.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.btnExtendRg2, "extend selection downwards");
             this.btnExtendRg2.UseVisualStyleBackColor = true;
             this.btnExtendRg2.Click += new System.EventHandler(this.btnExtendRg2_Click);
             // 
@@ -85,57 +92,29 @@ namespace ExcelStatisticsAddin
             this.btnExtendRg1.Name = "btnExtendRg1";
             this.btnExtendRg1.Size = new System.Drawing.Size(19, 23);
             this.btnExtendRg1.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.btnExtendRg1, "extend selection downwards");
             this.btnExtendRg1.UseVisualStyleBackColor = true;
             this.btnExtendRg1.Click += new System.EventHandler(this.btnExtendRg1_Click);
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(47, 274);
+            this.btnOK.Location = new System.Drawing.Point(47, 453);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(94, 43);
             this.btnOK.TabIndex = 2;
-            this.btnOK.Text = "&OK";
+            this.btnOK.Text = "&Plot";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(158, 274);
+            this.button2.Location = new System.Drawing.Point(158, 453);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(91, 43);
             this.button2.TabIndex = 3;
-            this.button2.Text = "&Cancel";
+            this.button2.Text = "&Close";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // histogram1
-            // 
-            this.histogram1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.histogram1.DisplayColor = System.Drawing.Color.Black;
-            this.histogram1.Location = new System.Drawing.Point(307, 23);
-            this.histogram1.Name = "histogram1";
-            this.histogram1.Offset = 20;
-            this.histogram1.Size = new System.Drawing.Size(383, 331);
-            this.histogram1.TabIndex = 4;
-            this.histogram1.Load += new System.EventHandler(this.histogram1_Load);
-            // 
-            // refedData
-            // 
-            this.refedData._Excel = null;
-            this.refedData.AllowCollapsedFormResize = false;
-            this.refedData.Location = new System.Drawing.Point(21, 21);
-            this.refedData.Name = "refedData";
-            this.refedData.Size = new System.Drawing.Size(182, 22);
-            this.refedData.TabIndex = 2;
-            // 
-            // refedBins
-            // 
-            this.refedBins._Excel = null;
-            this.refedBins.AllowCollapsedFormResize = false;
-            this.refedBins.Location = new System.Drawing.Point(21, 21);
-            this.refedBins.Name = "refedBins";
-            this.refedBins.Size = new System.Drawing.Size(182, 22);
-            this.refedBins.TabIndex = 3;
             // 
             // groupBox2
             // 
@@ -147,6 +126,28 @@ namespace ExcelStatisticsAddin
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Output Range";
             // 
+            // plotView1
+            // 
+            this.plotView1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.plotView1.Location = new System.Drawing.Point(311, 32);
+            this.plotView1.Name = "plotView1";
+            this.plotView1.PanCursor = System.Windows.Forms.Cursors.Hand;
+            this.plotView1.Size = new System.Drawing.Size(700, 464);
+            this.plotView1.TabIndex = 4;
+            this.plotView1.Text = "plotView1";
+            this.plotView1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            this.plotView1.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.plotView1.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 258);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 17);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "X-Axis Units";
+            // 
             // refedOutput
             // 
             this.refedOutput._Excel = null;
@@ -154,15 +155,63 @@ namespace ExcelStatisticsAddin
             this.refedOutput.Location = new System.Drawing.Point(21, 21);
             this.refedOutput.Name = "refedOutput";
             this.refedOutput.Size = new System.Drawing.Size(182, 22);
-            this.refedOutput.TabIndex = 3;
+            this.refedOutput.TabIndex = 2;
+            // 
+            // refedData
+            // 
+            this.refedData._Excel = null;
+            this.refedData.AllowCollapsedFormResize = false;
+            this.refedData.Location = new System.Drawing.Point(21, 21);
+            this.refedData.Name = "refedData";
+            this.refedData.Size = new System.Drawing.Size(182, 22);
+            this.refedData.TabIndex = 0;
+            // 
+            // refedBins
+            // 
+            this.refedBins._Excel = null;
+            this.refedBins.AllowCollapsedFormResize = false;
+            this.refedBins.Location = new System.Drawing.Point(21, 21);
+            this.refedBins.Name = "refedBins";
+            this.refedBins.Size = new System.Drawing.Size(182, 22);
+            this.refedBins.TabIndex = 1;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(35, 281);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(70, 22);
+            this.numericUpDown1.TabIndex = 9;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(111, 283);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 17);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "x bin size";
             // 
             // frmPlotHist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(744, 406);
+            this.ClientSize = new System.Drawing.Size(1102, 527);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.plotView1);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.histogram1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.grpInputData);
@@ -174,7 +223,9 @@ namespace ExcelStatisticsAddin
             this.groupBox1.ResumeLayout(false);
             this.grpInputData.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -188,8 +239,12 @@ namespace ExcelStatisticsAddin
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnExtendRg2;
         private System.Windows.Forms.Button btnExtendRg1;
-        private Histogram histogram1;
         private System.Windows.Forms.GroupBox groupBox2;
         public VS.NET_RefeditControl.refedit refedOutput;
+        private OxyPlot.WindowsForms.PlotView plotView1;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label2;
     }
 }

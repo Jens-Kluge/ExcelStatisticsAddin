@@ -23,11 +23,16 @@ namespace ExcelStatisticsAddin
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if(listBox1.SelectedIndex == 0)
+            LoadApplicationWindow();
+        }
+
+        private void LoadApplicationWindow()
+        {
+            if (listBox1.SelectedIndex == 0)
             {
                 LoadDistFitWindow();
             }
-            else if(listBox1.SelectedIndex == 1)
+            else if (listBox1.SelectedIndex == 1)
             {
                 LoadDistPlotWindow();
             }
@@ -79,6 +84,16 @@ namespace ExcelStatisticsAddin
         private void frmMain_Load(object sender, EventArgs e)
         {
             listBox1.SelectedIndex = 0;
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            LoadApplicationWindow();
         }
     }
 }
