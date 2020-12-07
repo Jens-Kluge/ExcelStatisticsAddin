@@ -102,18 +102,14 @@ namespace ExcelStatisticsAddin
 
                 // Add labels to the X-Axis
                 String[] catLabels = new String[rgOutput.Rows.Count];
-                double dvalue, remainder, eps;
-                double BinSize = rgBins[2, 1].Value - rgBins[1, 1].Value;
-                double Xunit = m_XUnits * BinSize; 
-                eps = m_XUnits*BinSize / 1000;
-
+                double dvalue;
+               
                 for (int i = 0; i < rgBins.Rows.Count; i++)
                 {
-                    dvalue = rgBins.Cells[i + 1, 1].Value;
-
-                    remainder = Math.Abs(Math.IEEERemainder(dvalue, Xunit));
-                    if (remainder < eps)
+                    
+                    if (i%m_XUnits == 0)
                     {
+                        dvalue = rgBins[i + 1, 1].Value;
                         catLabels[i] = String.Format("{0}", dvalue);
                     }
         
