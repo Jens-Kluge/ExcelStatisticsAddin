@@ -1226,6 +1226,8 @@ namespace VS.NET_RefeditControl
 					}
 				}
 				collapse.Height = (Height + (collapse.Height - collapse.ClientSize.Height)) + CollapsedHeightAdjustment;
+				//jk, 7.12.2020, but not too wide...
+				collapse.Width = Width + 100;
 				if (CollapseFormStyle == CollapseStyle.CollapseFormOnly)
 				{
 					Location = new Point(Left, 0);

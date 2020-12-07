@@ -22,11 +22,17 @@ namespace ExcelStatisticsAddin
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Generate the distribution plot
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
             Range rgData = null, rgBins = null, rgOutput=null;
             bool ok = false;
-            
+            Microsoft.Office.Interop.Excel.Application app = Globals.ThisAddIn.Application;
+
             try
             {
                 //GetValues
@@ -50,7 +56,7 @@ namespace ExcelStatisticsAddin
                 // create a series of bars and populate them with data
                 var seriesA = new OxyPlot.Series.ColumnSeries()
                 {
-                    Title = "Series A",
+                    Title = txtLegend.Text,
                     StrokeColor = OxyPlot.OxyColors.Black,
                     FillColor = OxyPlot.OxyColors.Red,
                     StrokeThickness = 1
@@ -67,7 +73,7 @@ namespace ExcelStatisticsAddin
                 //create a model and add the series to it
                 var model = new OxyPlot.PlotModel
                 {
-                    Title = "Histogram"
+                    Title = txtTitle.Text
                 };
 
                 if (chkOverlay.Checked)
@@ -86,7 +92,7 @@ namespace ExcelStatisticsAddin
                    
                     for (int i = 0; i < rgOutput.Rows.Count; i++)
                     {
-                        value = Globals.ThisAddIn.Application.WorksheetFunction.Weibull(rgBins[i + 1, 1].Value, beta, alpha, false);
+                        value = app.WorksheetFunction.Weibull_Dist(rgBins[i + 1, 1].Value, beta, alpha, false);
                         value *= scalefactor;
                         lsFit.Points.Add(new OxyPlot.DataPoint(i + 0.5, value));
                     }
@@ -181,6 +187,8 @@ namespace ExcelStatisticsAddin
 
         private void EstimateWeibullDistParams(Range rgData, ref double alpha, ref double beta)
         {
+            Microsoft.Office.Interop.Excel.Application app = Globals.ThisAddIn.Application;
+
             //use the power density method 
             double x3_avg = Globals.ThisAddIn.Application.WorksheetFunction.SumProduct(rgData, rgData, rgData);
             long samplesize = rgData.Rows.Count;
@@ -189,7 +197,7 @@ namespace ExcelStatisticsAddin
             double avgx3 = Math.Pow(avg,3);
             double epattern = x3_avg / avgx3;
             beta = 1 + 3.69 / Math.Pow(epattern, 2);
-            alpha = avg / Globals.ThisAddIn.Application.WorksheetFunction.Gamma(1 + 1 / beta);
+            alpha = avg /app.WorksheetFunction.Gamma(1 + 1 / beta);
         }
 
         private bool IsValidBinRange(Range rgBins)
@@ -226,6 +234,62 @@ namespace ExcelStatisticsAddin
                 MessageBox.Show(ex.Message);
                 return false;
             }
+        }
+
+        private void chkOverlay_CheckedChanged(object sender, EventArgs e) { 
+
+            double alpha = 3, beta = 2;
+            double value;
+            bool ok=false;
+
+            OxyPlot.PlotModel model = plotView1.Model;
+            if(model is null) { return; }
+
+            //box is unchecked => remove curve overlay
+            if(!chkOverlay.Checked) {
+                if(model.Series.Count >= 2)
+                {
+                    model.Series.Remove(model.Series[1]);
+                    model.InvalidatePlot(true);
+                }
+                return;
+            }
+
+            //plot overlay already added => nothing to do
+            if (model.Series.Count >= 2) { return; }
+
+            Microsoft.Office.Interop.Excel.Application app = Globals.ThisAddIn.Application;
+            
+            Range rgData=null, rgBins=null;
+            //GetValues
+            Utilities.GetRange(ref rgData, refedData.Text, ref ok);
+            Utilities.GetRange(ref rgBins, refedBins.Text, ref ok);
+
+            //Todo: Check ranges
+            if (!IsValidBinRange(rgBins))
+            {
+                return;
+            }
+
+            EstimateWeibullDistParams(rgData, ref alpha, ref beta);
+
+
+            double scalefactor = rgData.Rows.Count * (rgBins[2, 1].Value - rgBins[1, 1].Value);
+
+            //line series overlay
+            var lsFit = new OxyPlot.Series.LineSeries()
+            {
+                Color = OxyPlot.OxyColors.Green
+            };
+                   
+            for (int i = 0; i<rgBins.Rows.Count; i++)
+                    {
+                        value = app.WorksheetFunction.Weibull_Dist(rgBins[i + 1, 1].Value, beta, alpha, false);
+                        value *= scalefactor;
+                        lsFit.Points.Add(new OxyPlot.DataPoint(i + 0.5, value));
+             }
+             model.Series.Add(lsFit);
+             model.InvalidatePlot(true);
         }
     }
 }

@@ -167,7 +167,6 @@ namespace ExcelStatisticsAddin
 
             if (IsValid(ref rg, ref ce)) {
                 RunDistFit(rg, ce);
-                Close();
             }
         }
 

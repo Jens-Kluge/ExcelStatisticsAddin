@@ -23,6 +23,17 @@ namespace ExcelStatisticsAddin
             }
         }
 
+        public static void BringFormsToFront()
+        {
+            FormCollection fms = System.Windows.Forms.Application.OpenForms;
+            if(fms is null) { return; }
+
+            foreach(Form fm in fms)
+            {
+                fm.BringToFront();
+            }
+        }
+
         public static void ExtendRange(Range rg, ref Range rg1)
         {
             //For a given range rg, return range rg1 which extends the first row of rg until a row of empty cells is found

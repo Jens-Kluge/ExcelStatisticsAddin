@@ -33,20 +33,24 @@ namespace ExcelStatisticsAddin
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPlotHist));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnExtendRg2 = new System.Windows.Forms.Button();
-            this.refedBins = new VS.NET_RefeditControl.refedit();
             this.grpInputData = new System.Windows.Forms.GroupBox();
-            this.refedData = new VS.NET_RefeditControl.refedit();
             this.btnExtendRg1 = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.refedOutput = new VS.NET_RefeditControl.refedit();
             this.plotView1 = new OxyPlot.WindowsForms.PlotView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.chkOverlay = new System.Windows.Forms.CheckBox();
+            this.txtTitle = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtLegend = new System.Windows.Forms.TextBox();
+            this.refedOutput = new VS.NET_RefeditControl.refedit();
+            this.refedData = new VS.NET_RefeditControl.refedit();
+            this.refedBins = new VS.NET_RefeditControl.refedit();
             this.groupBox1.SuspendLayout();
             this.grpInputData.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -57,7 +61,7 @@ namespace ExcelStatisticsAddin
             // 
             this.groupBox1.Controls.Add(this.btnExtendRg2);
             this.groupBox1.Controls.Add(this.refedBins);
-            this.groupBox1.Location = new System.Drawing.Point(26, 97);
+            this.groupBox1.Location = new System.Drawing.Point(26, 92);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(236, 59);
             this.groupBox1.TabIndex = 0;
@@ -75,15 +79,6 @@ namespace ExcelStatisticsAddin
             this.btnExtendRg2.UseVisualStyleBackColor = true;
             this.btnExtendRg2.Click += new System.EventHandler(this.btnExtendRg2_Click);
             // 
-            // refedBins
-            // 
-            this.refedBins._Excel = null;
-            this.refedBins.AllowCollapsedFormResize = false;
-            this.refedBins.Location = new System.Drawing.Point(21, 21);
-            this.refedBins.Name = "refedBins";
-            this.refedBins.Size = new System.Drawing.Size(182, 22);
-            this.refedBins.TabIndex = 1;
-            // 
             // grpInputData
             // 
             this.grpInputData.Controls.Add(this.refedData);
@@ -94,15 +89,6 @@ namespace ExcelStatisticsAddin
             this.grpInputData.TabIndex = 1;
             this.grpInputData.TabStop = false;
             this.grpInputData.Text = "Data";
-            // 
-            // refedData
-            // 
-            this.refedData._Excel = null;
-            this.refedData.AllowCollapsedFormResize = false;
-            this.refedData.Location = new System.Drawing.Point(21, 21);
-            this.refedData.Name = "refedData";
-            this.refedData.Size = new System.Drawing.Size(182, 22);
-            this.refedData.TabIndex = 0;
             // 
             // btnExtendRg1
             // 
@@ -138,21 +124,12 @@ namespace ExcelStatisticsAddin
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.refedOutput);
-            this.groupBox2.Location = new System.Drawing.Point(26, 174);
+            this.groupBox2.Location = new System.Drawing.Point(26, 170);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(236, 59);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Output Range";
-            // 
-            // refedOutput
-            // 
-            this.refedOutput._Excel = null;
-            this.refedOutput.AllowCollapsedFormResize = false;
-            this.refedOutput.Location = new System.Drawing.Point(21, 21);
-            this.refedOutput.Name = "refedOutput";
-            this.refedOutput.Size = new System.Drawing.Size(182, 22);
-            this.refedOutput.TabIndex = 2;
             // 
             // plotView1
             // 
@@ -170,7 +147,7 @@ namespace ExcelStatisticsAddin
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 258);
+            this.label1.Location = new System.Drawing.Point(32, 237);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 17);
             this.label1.TabIndex = 8;
@@ -178,7 +155,7 @@ namespace ExcelStatisticsAddin
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(35, 281);
+            this.numericUpDown1.Location = new System.Drawing.Point(35, 260);
             this.numericUpDown1.Minimum = new decimal(new int[] {
             1,
             0,
@@ -197,7 +174,7 @@ namespace ExcelStatisticsAddin
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(111, 283);
+            this.label2.Location = new System.Drawing.Point(111, 262);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 17);
             this.label2.TabIndex = 10;
@@ -206,18 +183,84 @@ namespace ExcelStatisticsAddin
             // chkOverlay
             // 
             this.chkOverlay.AutoSize = true;
-            this.chkOverlay.Location = new System.Drawing.Point(35, 333);
+            this.chkOverlay.Location = new System.Drawing.Point(35, 299);
             this.chkOverlay.Name = "chkOverlay";
             this.chkOverlay.Size = new System.Drawing.Size(202, 21);
             this.chkOverlay.TabIndex = 11;
             this.chkOverlay.Text = "Overlay Weibull distribution";
             this.chkOverlay.UseVisualStyleBackColor = true;
+            this.chkOverlay.CheckedChanged += new System.EventHandler(this.chkOverlay_CheckedChanged);
+            // 
+            // txtTitle
+            // 
+            this.txtTitle.Location = new System.Drawing.Point(35, 355);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(227, 22);
+            this.txtTitle.TabIndex = 12;
+            this.txtTitle.Text = "Histogram";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(32, 332);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 17);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Title";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(32, 380);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 17);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Legend";
+            // 
+            // txtLegend
+            // 
+            this.txtLegend.Location = new System.Drawing.Point(35, 400);
+            this.txtLegend.Name = "txtLegend";
+            this.txtLegend.Size = new System.Drawing.Size(227, 22);
+            this.txtLegend.TabIndex = 15;
+            this.txtLegend.Text = "Data Series";
+            // 
+            // refedOutput
+            // 
+            this.refedOutput._Excel = null;
+            this.refedOutput.AllowCollapsedFormResize = false;
+            this.refedOutput.Location = new System.Drawing.Point(21, 21);
+            this.refedOutput.Name = "refedOutput";
+            this.refedOutput.Size = new System.Drawing.Size(182, 22);
+            this.refedOutput.TabIndex = 2;
+            // 
+            // refedData
+            // 
+            this.refedData._Excel = null;
+            this.refedData.AllowCollapsedFormResize = false;
+            this.refedData.Location = new System.Drawing.Point(21, 21);
+            this.refedData.Name = "refedData";
+            this.refedData.Size = new System.Drawing.Size(182, 22);
+            this.refedData.TabIndex = 0;
+            // 
+            // refedBins
+            // 
+            this.refedBins._Excel = null;
+            this.refedBins.AllowCollapsedFormResize = false;
+            this.refedBins.Location = new System.Drawing.Point(21, 21);
+            this.refedBins.Name = "refedBins";
+            this.refedBins.Size = new System.Drawing.Size(182, 22);
+            this.refedBins.TabIndex = 1;
             // 
             // frmPlotHist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1102, 527);
+            this.Controls.Add(this.txtLegend);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtTitle);
             this.Controls.Add(this.chkOverlay);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.numericUpDown1);
@@ -259,5 +302,9 @@ namespace ExcelStatisticsAddin
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chkOverlay;
+        private System.Windows.Forms.TextBox txtTitle;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtLegend;
     }
 }

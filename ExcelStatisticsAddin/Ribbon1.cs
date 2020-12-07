@@ -29,6 +29,7 @@ namespace ExcelStatisticsAddin
             {
                 fmMain.BringToFront();
             }
+            Utilities.BringFormsToFront();
         }
     }
 }
