@@ -1,6 +1,7 @@
 For installation:
 1. Run the setup.msi file
-2. Click on the VSTO file to install the Excel Addin. Ignore the warning "unknown publisher".
+2. Go into the windows program directory in which the application was installed
+3. Click on the VSTO file to install the Excel Addin. Ignore the warning "unknown publisher".
 
 For deinstallation:
 1. Look for "Setup Excel Statistics Addin" and "Excel Statistics Addin" in "Add or remove programs" 
