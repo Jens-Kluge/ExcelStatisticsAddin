@@ -129,6 +129,7 @@ namespace VS.NET_RefeditControl
 		private ReferenceStyle _Relativity = ReferenceStyle.Absolute;
 		private CollapseStyle _CollapseStyle = CollapseStyle.CollapseFormAndFitCellSelector;
 		private DisplayStyle _DisplayStyle = DisplayStyle.AddressRange;
+		private int _MaxCollapseWidth = 0; 
 
 		private Hashtable visibles;
 		private ArrayList parents;
@@ -170,7 +171,10 @@ namespace VS.NET_RefeditControl
 
 		}
 		
-		
+		/// <summary>
+		/// Refedit Constructor passing reference to Excel application
+		/// </summary>
+		/// <param name="excel"></param>
 		public refedit(Excel.Application excel)
 		{
 			// This call is required by the Windows.Forms Form Designer.
@@ -484,6 +488,23 @@ namespace VS.NET_RefeditControl
 				_AllowCollapsedResize = value;
 			}
 		}
+
+		/// <summary>
+		/// Maximum width in the collapsed state
+		/// </summary>
+		[Category("Refedit"), Description("Max. width in collapsed state"), DefaultValue(0)]
+		public int MaxCollapseWidth
+        {
+			get
+            {
+				return _MaxCollapseWidth;
+            }
+
+			set
+			{
+				_MaxCollapseWidth = value;
+			}
+        }
 		/// <summary>
 		/// Determines whether single cell or multiple cell selection is allowed
 		/// </summary>
@@ -1226,8 +1247,9 @@ namespace VS.NET_RefeditControl
 					}
 				}
 				collapse.Height = (Height + (collapse.Height - collapse.ClientSize.Height)) + CollapsedHeightAdjustment;
-				//jk, 7.12.2020, but not too wide...
-				collapse.Width = Width + 100;
+				if (MaxCollapseWidth != 0) {
+					collapse.Width = MaxCollapseWidth;
+				}
 				if (CollapseFormStyle == CollapseStyle.CollapseFormOnly)
 				{
 					Location = new Point(Left, 0);
